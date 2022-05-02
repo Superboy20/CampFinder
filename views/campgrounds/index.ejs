@@ -1,0 +1,125 @@
+<% layout('/layouts/boilerplate')%>
+
+    <div id="cluster-map"></div>
+    <div class="bg-light border mb-3">
+        <div class="d-flex justify-content-center p-3">
+            <h1>Welcome to CampFinder!</h1>
+        </div>
+        <div class="d-flex justify-content-center ms-3 me-3">
+            <p>Where you're able to view campgrounds from all over that have been personally added by other nature-lovers like you!
+            </p>
+        </div>
+        <div class="mx-auto" style="width: 200px;">
+            <a class="btn btn-primary mb-4" style="width: 200px;" href="/campgrounds/new">Add New Campground</a>
+        </div>
+    </div>
+
+    <% for(let campground of campgrounds) {%>
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col-lg-4 text-center d-flex justify-content-center">
+                    <% if(campground.images.length) { %>
+
+                        <% let num = Math.floor(Math.random() * campground.images.length) %> 
+                        <img class="img-thumbnail rounded" alt="" src="<%= campground.images[num].url%>">
+
+                        <% } else { %>
+                            <img class="img-fluid" alt=""
+                                src="https://res.cloudinary.com/dsveume0w/image/upload/v1619923334/YelpCamp/bxj6rwuoxnevlq7yjn1w.jpg">
+
+                            <% } %>
+                </div>
+                <div class="col-lg-8 text-center">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= campground.title%>
+                        </h5>
+                        <p class="card-text">
+                            <%= campground.description%>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <%= campground.location%>
+                            </small>
+                        </p>
+                        <a class="btn btn-primary" href="/campgrounds/<%= campground._id%>">View <%= campground.title%>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+
+            <script>
+                const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+                const campgrounds = { features: <%- JSON.stringify(campgrounds) %>}
+
+            </script>
+
+            <script src="/javascripts/clusterMap.js"></script>
+
+<nav aria-label="Page navigation">
+     <% if (pages && pages> 0) { %>
+          <ul class="pagination justify-content-center">
+             <% if (current==1) { %>
+                <li class="page-item disabled"><a class="page-link">First</a></li>
+                <% } else { %>                        <li><a class="page-link" href="/campgrounds">First</a></li>
+                    <% } %>
+                        <% if (current==1) { %>
+                             <li class="page-item disabled"><a class="page-link">«</a></li>
+                            <% } else { %>
+                                <li><a class="page-link"
+                                         href="/campgrounds?page=<%= Number(current) - 1 %>">«</a></li>
+                                 <% } %>
+
+                                      <% var i=(Number(current)> 5 ? Number(current) - 4 : 1) %>
+                                        <% if (i !==1) { %>
+                                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                                               <% } %>
+                                                   <% for (; i <=(Number(current) + 4) && i <=pages; i++) { %>
+                                                       <% if (i==current) { %>
+                                                           <li class="active"><a
+                                                                  class="page-link text-black-50 bg-light">
+                                                                  <%= i %>
+                                                            </a></li>
+                                                          <% } else { %>
+                                                            <li><a class="page-link"
+                                                                       href="/campgrounds?page=<%= i %>">
+                                                                     <%= i %>
+                                                                  </a></li>
+                                                               <% } %>
+                                                                 <% if (i==Number(current) + 4 && i < pages)
+                                                                     { %>
+                                                                     <li class="page-item disabled"><a
+                                                                               class="page-link">...</a></li>
+                                                                      <% } %>
+                                                                           <% } %>
+
+                                                                             <% if (current==pages) { %>
+                                                                                  <li
+                                                                                     class="page-item disabled">
+                                                                                     <a
+                                                                                         class="page-link">»</a>
+                                                                                </li>
+                                                                                <% } else { %>
+                                                                                      <li><a class="page-link"
+                                                                                             href="/campgrounds?page=<%= Number(current) + 1 %>">»</a>
+                                                                                    </li>
+                                                                                    <% } %>
+
+                                                                                        <% if
+                                                                                             (current==pages)
+                                                                                             { %>
+                                                                                             <li
+                                                                                                class="page-item disabled">
+                                                                                                <a
+                                                                                                    class="page-link">Last</a>
+                                                                                               </li>
+                                                                                               <% } else { %>
+                                                                                                   <li><a class="page-link"
+                                                                                                        href="/campgrounds?page=<%= pages %>">Last</a>
+                                                                                                </li>
+                                                                                                  <% } %>
+        </ul>
+           <% } %>
+</nav>

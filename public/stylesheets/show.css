@@ -1,0 +1,25 @@
+body {
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url("https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+    background-size: cover;
+    background-position: center;
+    text-shadow: none;
+}
+
+@media screen and (max-width: 770px){
+
+    #rightColumn{
+      float:none;
+      display:block;
+      width:100%;
+      margin-bottom: 10px;
+    }
+
+    #leftColumn{
+        float:none;
+        display:block;
+        width:100%;
+      }
+
+    }
