@@ -4,7 +4,7 @@
 services:
   - type: web # valid values: https://render.com/docs/yaml-spec#type
     name: warm-forest-81903
-    env: docker # valid values: https://render.com/docs/yaml-spec#environment
+    env: node # valid values: https://render.com/docs/yaml-spec#environment
     dockerfilePath: Dockerfile.render
     plan: free # optional; defaults to starter
     numInstances: 1
@@ -13,4 +13,10 @@ services:
         value: dsveume0w
       - key: DB_URL # Imported from Heroku app
         value: mongodb+srv://spr-usr:4qJiGuweIUeGoQGT@cluster0.vmcjr.mongodb.net/campfinderdb?retryWrites&#x3D;true&amp;w&#x3D;majority
+      - key: CLOUDINARY_KEY # Imported from Heroku app
+        value: 292153197715837
+      - key: CLOUDINARY_SECRET # Imported from Heroku app
+        value: Kv4Q6wqsn-GWgfoj3oTi3hFnLTI
+      - key: MAPBOX_TOKEN # Imported from Heroku app
+        value: pk.eyJ1IjoidG1vbGluYTIwIiwiYSI6ImNrbm91c280ejFhZW8ybnB1dDhlZ2t2bm0ifQ.MandM6BKQa6N0ErpYNLVjg
 
